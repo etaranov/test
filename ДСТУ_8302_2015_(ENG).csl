@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style class="in-text" version="1.0" default-locale="en-US"
+    xmlns="http://purl.org/net/xbiblio/csl">
+    <info>
+        <title>ДСТУ 8302:2015 (ENG)</title>
+        <id>web.kpi.kharkov.ua/mto/DSTU_ENG</id>
+        <link rel="self" href=""/>
+        <author>
+            <name>Valentin Kovshik</name>
+            <email>valentin.kovshik@khpi.edu.ua</email>
+            <uri>https://web.kpi.kharkov.ua/mto/</uri>
+        </author>
+        <category citation-format="author-date"/>
+        <category field="generic-base"/>
+        <summary>A simplified minimal citation style file for use with Ukrainian bibliography standard (ДСТУ 8302:2015) in social sciences. All major types of publications are supposed to be referenced as one of the following: web page, book, book chapter (which also works for conference papers), journal article (any periodical publication).</summary>
+        <rights>This code is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License: https://creativecommons.org/licenses/by-nc-sa/4.0/</rights>
+        <updated>2023-03-02T02:55:42+00:00</updated>
+    </info>
+    <locale>
+        <date form="text">
+            <date-part name="month" suffix=" "/>
+            <date-part name="day" suffix=", "/>
+            <date-part name="year"/>
+        </date>
+    </locale>
+    <locale xml:lang="en">
+        <terms>
+            <term name="and others">et al.</term>
+            <term name="et-al">et al.</term>
+            <term name="page" form="short">p.</term>
+        </terms>
+    </locale>
+    <macro name="authorsList">
+        <names variable="author">
+            <name delimiter-precedes-et-al="never" et-al-min="4" et-al-use-first="3" initialize-with=". " name-as-sort-order="all" sort-separator=" "/>
+            <substitute/>
+        </names>
+    </macro>
+    <macro name="sectionTitle">
+        <text variable="title"/>
+    </macro>
+    <macro name="parentTitle">
+        <text variable="container-title" font-style="italic"/>
+    </macro>
+    <macro name="date">
+        <date variable="issued">
+            <date-part name="year"/>
+        </date>
+    </macro>
+    <citation collapse="citation-number">
+        <sort>
+            <key variable="citation-number"/>
+        </sort>
+        <layout delimiter="; " prefix="[" suffix="]">
+            <group delimiter=", ">
+                <text variable="citation-number"/>
+                <group>
+                    <label variable="locator" form="short" strip-periods="true" suffix=". "/>
+                    <text variable="locator"/>
+                </group>
+            </group>
+        </layout>
+    </citation>
+    <bibliography hanging-indent="true" second-field-align="">
+        <sort>
+            <key variable="citation-number"/>
+        </sort>
+        <layout suffix=".">
+            <text variable="citation-number" suffix=" "/>
+            <choose>
+                <if type="article-journal">
+                    <text macro="authorsList" suffix=". "/>
+                    <text macro="sectionTitle" suffix=". "/>
+                    <group delimiter=". ">
+                        <text macro="parentTitle"/>
+                        <text macro="date"/>
+                        <group delimiter=", ">
+                            <text variable="volume" prefix="Vol. "/>
+                            <text variable="issue" prefix="№ "/>
+                            <text variable="page" prefix="P. "/>
+                        </group>
+                    </group>
+                </if>
+                <else-if type="book">
+                    <text macro="authorsList" suffix=". "/>
+                    <text macro="sectionTitle" text-case="sentence" suffix=". "/>
+                    <group delimiter=". ">
+                        <group delimiter=": ">
+                            <text macro="parentTitle" text-case="sentence"/>
+                            <names variable="editor" prefix="/ ed. by ">
+                                <name initialize-with=". " et-al-min="5" et-al-use-first="3" delimiter-precedes-last="never"/>
+                            </names>
+                        </group>
+                        <group delimiter=" : ">
+                            <text variable="publisher-place"/>
+                            <group delimiter=", ">
+                                <text variable="publisher"/>
+                                <text macro="date"/>
+                            </group>
+                        </group>
+                        <text variable="number-of-pages" suffix=" p."/>
+                    </group>
+                </else-if>
+                <else-if type="chapter paper-conference" match="any">
+                    <text macro="authorsList" suffix=". "/>
+                    <text macro="sectionTitle" suffix=": "/>
+                    <text variable="genre" suffix=". "/>
+                    <group delimiter=". ">
+                        <group delimiter=": ">
+                            <text macro="parentTitle" text-case="sentence"/>
+                            <names variable="editor" prefix="/ ed. by ">
+                                <name initialize-with=". " et-al-min="5" et-al-use-first="3" delimiter-precedes-last="never"/>
+                            </names>
+                        </group>
+                        <group delimiter=" : ">
+                            <text variable="publisher-place"/>
+                            <group delimiter=", ">
+                                <text variable="publisher"/>
+                                <text macro="date"/>
+                            </group>
+                        </group>
+                        <text variable="number-of-pages" suffix="p."/>
+                    </group>
+                </else-if>
+                <else-if type="webpage">
+                    <text macro="authorsList" suffix=". "/>
+                    <text macro="sectionTitle" suffix=". "/>
+                    <text variable="container-title" font-style="italic" suffix=". "/>
+                    <text variable="genre" suffix=". "/>
+                    <text variable="URL" prefix="URL: " suffix=" "/>
+                    <date variable="accessed" prefix="(accessed at: " suffix=")">
+                        <date-part name="day" form="numeric-leading-zeros" suffix="."/>
+                        <date-part name="month" form="numeric-leading-zeros" suffix="."/>
+                        <date-part name="year"/>
+                    </date>
+                </else-if>
+                <else>
+                    <text macro="authorsList" suffix=". "/>
+                    <text macro="sectionTitle" suffix=" / "/>
+                    <group delimiter=". ">
+                        <group delimiter=": ">
+                            <text variable="publisher-place"/>
+                            <group delimiter=", ">
+                                <text variable="publisher"/>
+                                <text macro="date"/>
+                            </group>
+                        </group>
+                        <text variable="page" suffix=" p."/>
+                    </group>
+                </else>
+            </choose>
+        </layout>
+    </bibliography>
+</style>
